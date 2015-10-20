@@ -20,7 +20,8 @@ do
 	/usr/bin/aws s3 cp $file s3://$S3_ARCHIVE_BUCKET/$relativepath --region $S3_REGION --sse --only-show-error
 	
 	if [ $? -eq 0 ]; then
-		rm -rf $file
+		folder=$(echo $file|sed -e 's,/rawdata/journal.gz,,')
+		rm -rf $folder
 		res='success'
 	else
 		res='failure'
